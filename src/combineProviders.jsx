@@ -1,6 +1,6 @@
 import { ProductProvider } from './context/productContext';
 // import { BasketProvider } from './context/basketContext';
-// import { FilterProvider } from './context/filterContext';
+import { FilterProvider } from './context/filterContext';
 // import { CategoryProvider } from './context/categoryContext';
 // import { AuthProvider } from './context/authContext';
 // import { SearchProvider } from './context/searchContext';
@@ -25,7 +25,7 @@ export const AllProviders = combineProviders([
     ProductProvider,
     // BasketProvider,
     // AuthProvider,
-    // FilterProvider,
+    FilterProvider,
     // CategoryProvider,
     // SearchProvider,
 ]);
