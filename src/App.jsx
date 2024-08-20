@@ -25,7 +25,7 @@ function App() {
                     <Route path="/error" element={<Error />} />
                     <Route path="/search/:searchKey" element={<Search />} />
                     <Route path="/category/:categoryKey" element={<ViewCategoryProductList />} />
-                    <Route path="/product/:id" element={<ViewProductSingle />} />
+                    <Route path="/products/:id" element={<ViewProductSingle />} />
                     <Route path="*" element={<Error />} />
                 </Route>
             </Routes>

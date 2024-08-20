@@ -1,7 +1,7 @@
 import { ProductProvider } from './context/productContext';
-// import { BasketProvider } from './context/basketContext';
+import { BasketProvider } from './context/basketContext';
 import { FilterProvider } from './context/filterContext';
-// import { CategoryProvider } from './context/categoryContext';
+import { CategoryProvider } from './context/categoryContext';
 // import { AuthProvider } from './context/authContext';
 // import { SearchProvider } from './context/searchContext';
 import PropTypes from 'prop-types';
@@ -23,9 +23,9 @@ const combineProviders = (providers) =>
 
 export const AllProviders = combineProviders([
     ProductProvider,
-    // BasketProvider,
+    BasketProvider,
     // AuthProvider,
     FilterProvider,
-    // CategoryProvider,
+    CategoryProvider,
     // SearchProvider,
 ]);

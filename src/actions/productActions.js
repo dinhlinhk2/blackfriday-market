@@ -19,3 +19,21 @@ export const getAllProducts = async (dispatch) => {
         });
     }
 };
+
+export const getSingleProduct = async (dispatch, productId) => {
+    dispatch({
+        type: actionType.GET_SINGLE_PRODUCT_REQUEST,
+    });
+    try {
+        const { data } = await axios.get(`products/${productId}`);
+        dispatch({
+            type: actionType.GET_SINGLE_PRODUCT_SUCCESS,
+            payload: data,
+        });
+    } catch (error) {
+        dispatch({
+            type: actionType.GET_SINGLE_PRODUCT_FAIL,
+            payload: error.message,
+        });
+    }
+};

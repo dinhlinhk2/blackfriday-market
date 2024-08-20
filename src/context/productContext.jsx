@@ -2,7 +2,7 @@ import { useEffect, useReducer, createContext } from 'react';
 import PropTypes from 'prop-types';
 
 import rootReducer from '../reducers/';
-import { getAllProducts } from '../actions/productActions';
+import { getAllProducts, getSingleProduct } from '../actions/productActions';
 
 const initialState = {
     products: [],
@@ -25,7 +25,9 @@ export const ProductProvider = ({ children }) => {
     useEffect(() => {
         getAllProducts(dispatch);
     }, []);
-    return <ProductContext.Provider value={{ ...state, dispatch }}>{children}</ProductContext.Provider>;
+    return (
+        <ProductContext.Provider value={{ ...state, dispatch, getSingleProduct }}>{children}</ProductContext.Provider>
+    );
 };
 
 ProductProvider.propTypes = {

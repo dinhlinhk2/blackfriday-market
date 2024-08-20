@@ -1,12 +1,21 @@
 import { Link } from 'react-router-dom';
-import '../../styles/Navbar.scss';
 import { FaUser } from 'react-icons/fa';
 import { FiLogOut } from 'react-icons/fi';
 import { BsCaretDownFill, BsSearch } from 'react-icons/bs';
 import { HiShoppingBag } from 'react-icons/hi';
 import { AiOutlineBars } from 'react-icons/ai';
+import { useState, useContext } from 'react';
+import { CategoryContext } from '../../context/categoryContext';
+import '../../styles/Navbar.scss';
 
 const Navbar = () => {
+    const [showCategories, setShowCategories] = useState(false);
+    const { categories } = useContext(CategoryContext);
+
+    const handleShowCategories = () => {
+        setShowCategories(!showCategories);
+    };
+
     return (
         <nav className="navbar">
             <div className="navbar-top bg-secondary flex align-center">
@@ -60,30 +69,41 @@ const Navbar = () => {
 
                     <div className="navbar-main-bottom flex align-center justify-between">
                         <div className="navbar-cats-wrapper">
-                            <div className="navbar-cats-btn flex align-center text-white px-2 py-2">
+                            <div
+                                className="navbar-cats-btn flex align-center text-white px-2 py-2"
+                                onClick={handleShowCategories}
+                            >
                                 <AiOutlineBars />
                                 <span className="text-uppercase mx-3 fs-13">all categories</span>
                                 <BsCaretDownFill />
                             </div>
 
-                            <ul className={`category-list`}>
-                                <li className="category-item">
-                                    <Link
-                                        to={`/category/`}
-                                        className="category-item-link text-uppercase text-dark fs-12"
-                                    >
-                                        Category Name
-                                    </Link>
-                                </li>
+                            <ul className={`category-list ${showCategories ? 'show-category-list' : ''}`}>
+                                {categories.map((category, index) => {
+                                    return (
+                                        <li className="category-item" key={index}>
+                                            <Link
+                                                to={`products/category/${category.slug}`}
+                                                className="category-item-link text-uppercase text-dark fs-12"
+                                            >
+                                                {category.name}
+                                            </Link>
+                                        </li>
+                                    );
+                                })}
                             </ul>
                         </div>
 
                         <ul className="navbar-nav flex align-center">
-                            <li className="nav-item">
-                                <Link to={`/category/`} className="nav-link no-wrap">
-                                    text here
-                                </Link>
-                            </li>
+                            {categories.slice(0, 6).map((category, index) => {
+                                return (
+                                    <li className="nav-item" key={index}>
+                                        <Link to={`/category/`} className="nav-link no-wrap">
+                                            {category.name}
+                                        </Link>
+                                    </li>
+                                );
+                            })}
                         </ul>
                     </div>
                 </div>

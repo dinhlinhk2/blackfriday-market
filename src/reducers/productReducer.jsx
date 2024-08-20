@@ -22,6 +22,26 @@ const productReducer = (state, action) => {
                 productsError: true,
                 productsErrorMsg: action.payload,
             };
+        case actionType.GET_SINGLE_PRODUCT_REQUEST:
+            return {
+                ...state,
+                singleProductLoading: true,
+                singleProductError: false,
+            };
+        case actionType.GET_SINGLE_PRODUCT_SUCCESS:
+            return {
+                ...state,
+                singleProductLoading: false,
+                singleProductError: false,
+                singleProduct: action.payload,
+            };
+        case actionType.GET_SINGLE_PRODUCT_FAIL:
+            return {
+                ...state,
+                singleProductLoading: false,
+                singleProductError: true,
+                singleProductErrorMsg: action.payload,
+            };
 
         default:
             return state;
