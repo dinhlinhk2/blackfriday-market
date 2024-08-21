@@ -24,7 +24,7 @@ export const CategoryProvider = ({ children }) => {
     }, [dispatch]);
 
     return (
-        <CategoryContext.Provider value={{ ...state, dispatch, getCategoriesList }}>
+        <CategoryContext.Provider value={{ ...state, dispatch, getCategoriesList, getCategoryProducts }}>
             {children}
         </CategoryContext.Provider>
     );

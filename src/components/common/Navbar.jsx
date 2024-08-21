@@ -13,6 +13,7 @@ const Navbar = () => {
     const [showCategories, setShowCategories] = useState(false);
     const { categories } = useContext(CategoryContext);
     const { basket, getBasketTotal, itemsCount, totalAmount, dispatch: basketDispatch } = useContext(BasketContext);
+    const [searchValue, setSearchTerm] = useState('');
 
     const handleShowCategories = () => {
         setShowCategories(!showCategories);
@@ -21,6 +22,11 @@ const Navbar = () => {
         getBasketTotal(basketDispatch);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [basket]);
+
+    const handleSearchTerm = (event) => {
+        event.preventDefault();
+        setSearchTerm(event.target.value);
+    };
 
     return (
         <nav className="navbar">
@@ -51,8 +57,16 @@ const Navbar = () => {
 
                         <form className="navbar-search-form">
                             <div className="input-group bg-white">
-                                <input type="text" className="form-control" placeholder="Search" />
-                                <Link to={`search/`} className="btn btn-primary flex align-center text-white px-3">
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Search"
+                                    onChange={handleSearchTerm}
+                                />
+                                <Link
+                                    to={`search/${searchValue}`}
+                                    className="btn btn-primary flex align-center text-white px-3"
+                                >
                                     <BsSearch size={15} />
                                     <span className="fs-15 mx-2">Search</span>
                                 </Link>
@@ -89,7 +103,7 @@ const Navbar = () => {
                                     return (
                                         <li className="category-item" key={index}>
                                             <Link
-                                                to={`products/category/${category.slug}`}
+                                                to={`/category/${category.slug}`}
                                                 className="category-item-link text-uppercase text-dark fs-12"
                                             >
                                                 {category.name}
@@ -104,7 +118,7 @@ const Navbar = () => {
                             {categories.slice(0, 6).map((category, index) => {
                                 return (
                                     <li className="nav-item" key={index}>
-                                        <Link to={`/category/`} className="nav-link no-wrap">
+                                        <Link to={`/category/${category.slug}`} className="nav-link no-wrap">
                                             {category.name}
                                         </Link>
                                     </li>

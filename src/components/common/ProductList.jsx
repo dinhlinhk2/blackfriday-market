@@ -14,7 +14,7 @@ function ProductList({ products }) {
                 <div className={`product-list ${grid_view ? 'gridview' : 'listview'}`}>
                     {products?.map((product) => {
                         return (
-                            <Link to={`products/${product.id}`} key={product.id} className="product-item">
+                            <Link to={`/products/${product.id}`} key={product.id} className="product-item">
                                 <div className="product-item-img">
                                     <img src={product.thumbnail} className="img-cover" />
                                     <div className="product-discount">

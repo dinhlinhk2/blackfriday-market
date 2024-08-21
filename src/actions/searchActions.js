@@ -1,5 +1,22 @@
-function searchActions() {
-    return <></>;
-}
+import { actionType } from '../constans';
+import axios from '../api/axios';
 
-export default searchActions;
+export const getSearchProducts = async (dispatch, searchTerm) => {
+    dispatch({
+        type: actionType.GET_SEARCH_RESULT_REQUEST,
+    });
+
+    try {
+        const { data } = await axios.get(`products/search?q=${searchTerm}`);
+
+        dispatch({
+            type: actionType.GET_SEARCH_RESULT_SUCCESS,
+            payload: data.products,
+        });
+    } catch (error) {
+        dispatch({
+            type: actionType.GET_SEARCH_RESULT_FAIL,
+            payload: error.message,
+        });
+    }
+};

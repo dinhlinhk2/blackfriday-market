@@ -5,22 +5,22 @@ const categoryReducer = (state, action) => {
         case actionType.CATEGORY_LIST_REQUEST:
             return {
                 ...state,
-                categoriesLoading: true,
-                categoriesError: false,
+                categoryLoading: true,
+                categoryError: false,
             };
         case actionType.CATEGORY_LIST_SUCCESS:
             return {
                 ...state,
-                categoriesLoading: false,
-                categoriesError: false,
+                categoryLoading: false,
+                categoryError: false,
                 categories: action.payload,
             };
         case actionType.CATEGORY_LIST_FAIL:
             return {
                 ...state,
-                categoriesLoading: false,
-                categoriesError: true,
-                categoriesErrorMsg: action.payload,
+                categoryLoading: false,
+                categoryError: true,
+                categoryErrorMsg: action.payload,
             };
         case actionType.CATEGORY_PRODUCT_REQUEST:
             return {
@@ -42,7 +42,6 @@ const categoryReducer = (state, action) => {
                 categoryProductError: true,
                 categoryProducts: action.payload,
             };
-
         default:
             return state;
     }
