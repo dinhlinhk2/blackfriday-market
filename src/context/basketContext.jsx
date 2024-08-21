@@ -9,6 +9,11 @@ import {
     setBasketMsgOn,
     setBasketMsgOff,
     getBasketTotal,
+    addToCheckout,
+    removeFromCheckout,
+    getCheckoutTotal,
+    setCheckoutAll,
+    unsetCheckoutAll,
 } from '../actions/basketActions';
 import { getFromLocalStorage } from '../utils/helpers';
 import PropTypes from 'prop-types';
@@ -39,6 +44,11 @@ export const BasketProvider = ({ children }) => {
                 setBasketMsgOn,
                 setBasketMsgOff,
                 getBasketTotal,
+                addToCheckout,
+                removeFromCheckout,
+                getCheckoutTotal,
+                setCheckoutAll,
+                unsetCheckoutAll,
             }}
         >
             {children}

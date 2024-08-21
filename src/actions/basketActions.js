@@ -52,3 +52,41 @@ export const setBasketMsgOff = (dispatch) => {
         payload: false,
     });
 };
+
+export const addToCheckout = (dispatch, id) => {
+    dispatch({
+        type: actionType.ADD_CHECKOUT_ITEM,
+        payload: id,
+    });
+};
+
+export const removeFromCheckout = (dispatch, id) => {
+    dispatch({
+        type: actionType.REMOVE_CHECKOUT_ITEM,
+        payload: id,
+    });
+};
+
+export const getCheckoutTotal = (dispatch) => {
+    dispatch({
+        type: actionType.GET_CHECKOUT_TOTAL,
+    });
+};
+
+export const setCheckoutAll = (dispatch) => {
+    dispatch({
+        type: actionType.SET_CHECKOUT_ALL,
+    });
+};
+
+export const unsetCheckoutAll = (dispatch) => {
+    dispatch({
+        type: actionType.UNSET_CHECKOUT_ALL,
+    });
+};
+
+export const checkCheckoutAll = (dispatch) => {
+    dispatch({
+        type: actionType.CHECK_CHECKOUT_ALL,
+    });
+};

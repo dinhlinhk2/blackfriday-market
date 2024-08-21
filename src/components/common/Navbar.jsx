@@ -4,17 +4,23 @@ import { FiLogOut } from 'react-icons/fi';
 import { BsCaretDownFill, BsSearch } from 'react-icons/bs';
 import { HiShoppingBag } from 'react-icons/hi';
 import { AiOutlineBars } from 'react-icons/ai';
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { CategoryContext } from '../../context/categoryContext';
+import { BasketContext } from '../../context/basketContext';
 import '../../styles/Navbar.scss';
 
 const Navbar = () => {
     const [showCategories, setShowCategories] = useState(false);
     const { categories } = useContext(CategoryContext);
+    const { basket, getBasketTotal, itemsCount, totalAmount, dispatch: basketDispatch } = useContext(BasketContext);
 
     const handleShowCategories = () => {
         setShowCategories(!showCategories);
     };
+    useEffect(() => {
+        getBasketTotal(basketDispatch);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [basket]);
 
     return (
         <nav className="navbar">
@@ -56,12 +62,12 @@ const Navbar = () => {
                         <div className="navbar-basket text-white flex align-center">
                             <Link to="basket" className="basket-btn">
                                 <HiShoppingBag size={29} />
-                                <span className="basket-count flex align-center justify-center">0</span>
+                                <span className="basket-count flex align-center justify-center">{itemsCount}</span>
                             </Link>
                             <div className="text-end basket-count">
                                 <p className="fs-14 text-uppercase">my cart</p>
                                 <Link to="/basket" className="fw-7">
-                                    $ <span className="basket-amount">0.00</span>
+                                    $ <span className="basket-amount">{totalAmount}</span>
                                 </Link>
                             </div>
                         </div>

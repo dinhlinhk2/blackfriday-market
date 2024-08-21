@@ -51,7 +51,7 @@ const ProductSinglePage = () => {
     const handleBasket = (product) => {
         let discountedPrice = calculateDiscountedPrice(product.price, product.discountPercentage);
         let totalPrice = quantity * discountedPrice;
-        addToBasket(basketDispatch, { ...product, quantity, discountedPrice, totalPrice });
+        addToBasket(basketDispatch, { ...product, quantity, discountedPrice, totalPrice, checkoutStatus: false });
         setBasketMsgOn(basketDispatch);
         console.log(product);
     };
