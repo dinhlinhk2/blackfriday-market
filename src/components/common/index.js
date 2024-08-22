@@ -7,3 +7,4 @@ export { default as FilterView } from './FilterView';
 export { default as PaymentMethods } from './PaymentMethods';
 export { default as BasketItem } from './BasketItem';
 export { default as CheckoutSummary } from './CheckoutSummary';
+export { default as SearchItem } from './SearchItem';

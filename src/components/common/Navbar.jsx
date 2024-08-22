@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { FaUser } from 'react-icons/fa';
 import { FiLogOut } from 'react-icons/fi';
-import { BsCaretDownFill, BsSearch } from 'react-icons/bs';
+import { BsCaretDownFill } from 'react-icons/bs';
 import { HiShoppingBag } from 'react-icons/hi';
 import { AiOutlineBars } from 'react-icons/ai';
 import { useState, useContext, useEffect } from 'react';
@@ -12,13 +12,13 @@ import { CategoryContext } from '../../context/categoryContext';
 import { BasketContext } from '../../context/basketContext';
 import '../../styles/Navbar.scss';
 import { AuthContext } from '../../context/authContext';
+import Search from './Search';
 
 const Navbar = () => {
     const [showCategories, setShowCategories] = useState(false);
     const { categories } = useContext(CategoryContext);
     const { authData, logout, dispatch: authDispatch } = useContext(AuthContext);
     const { basket, getBasketTotal, itemsCount, totalAmount, dispatch: basketDispatch } = useContext(BasketContext);
-    const [searchValue, setSearchTerm] = useState('');
 
     const handleShowCategories = () => {
         setShowCategories(!showCategories);
@@ -27,11 +27,6 @@ const Navbar = () => {
         getBasketTotal(basketDispatch);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [basket]);
-
-    const handleSearchTerm = (event) => {
-        event.preventDefault();
-        setSearchTerm(event.target.value);
-    };
 
     const notify = () => {
         if (authData.isLoggedIn) {
@@ -79,23 +74,7 @@ const Navbar = () => {
                             <span className="text-white fs-26 fw-6">Friday.</span>
                         </Link>
 
-                        <form className="navbar-search-form">
-                            <div className="input-group bg-white">
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="Search"
-                                    onChange={handleSearchTerm}
-                                />
-                                <Link
-                                    to={`search/${searchValue}`}
-                                    className="btn btn-primary flex align-center text-white px-3"
-                                >
-                                    <BsSearch size={15} />
-                                    <span className="fs-15 mx-2">Search</span>
-                                </Link>
-                            </div>
-                        </form>
+                        <Search />
 
                         <div className="navbar-basket text-white flex align-center">
                             <Link to="basket" className="basket-btn">
