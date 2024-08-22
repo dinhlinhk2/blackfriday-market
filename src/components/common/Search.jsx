@@ -20,6 +20,9 @@ function Search() {
     const debouncedSearch = useDebounce(searchValue, 300);
 
     useEffect(() => {
+        if (!debouncedSearch) {
+            return;
+        }
         getSearchProducts(searchDispatch, debouncedSearch);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [debouncedSearch]);
