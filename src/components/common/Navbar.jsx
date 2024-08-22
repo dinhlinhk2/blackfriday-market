@@ -5,13 +5,18 @@ import { BsCaretDownFill, BsSearch } from 'react-icons/bs';
 import { HiShoppingBag } from 'react-icons/hi';
 import { AiOutlineBars } from 'react-icons/ai';
 import { useState, useContext, useEffect } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import { CategoryContext } from '../../context/categoryContext';
 import { BasketContext } from '../../context/basketContext';
 import '../../styles/Navbar.scss';
+import { AuthContext } from '../../context/authContext';
 
 const Navbar = () => {
     const [showCategories, setShowCategories] = useState(false);
     const { categories } = useContext(CategoryContext);
+    const { authData, logout, dispatch: authDispatch } = useContext(AuthContext);
     const { basket, getBasketTotal, itemsCount, totalAmount, dispatch: basketDispatch } = useContext(BasketContext);
     const [searchValue, setSearchTerm] = useState('');
 
@@ -28,22 +33,41 @@ const Navbar = () => {
         setSearchTerm(event.target.value);
     };
 
+    const notify = () => {
+        if (authData.isLoggedIn) {
+            toast('Logged in successfully');
+        } else {
+            toast('Logout');
+        }
+    };
+
     return (
         <nav className="navbar">
             <div className="navbar-top bg-secondary flex align-center">
                 <div className="container w-100 flex align-center justify-end">
-                    <Link to="/account" className="mx-4 flex align-center justify-end text-dark">
-                        <FaUser size={14} />
-                        <span className="mx-2 fs-13 text-uppercase ls-1">Linh</span>
-                    </Link>
-                    {/* <Link to='/login' className="mx-4 flex align-center login-btn justify-end text-dark">
-                        <FaUser size={14} />
-                        <span className="mx-2 fs-13 text-uppercase ls-1">Login</span>
-                    </Link> */}
-                    <button type="button" className="flex align-center justify-end text-dark">
-                        <FiLogOut size={14} />
-                        <span className="mx-2 fs-13 text-uppercase ls-1">Logout</span>
-                    </button>
+                    {authData.isLoggedIn ? (
+                        <>
+                            <Link to="/account" className="mx-4 flex align-center justify-end text-dark">
+                                <FaUser size={14} />
+                                <span className="mx-2 fs-13 text-uppercase ls-1">{authData.info.firstName}</span>
+                            </Link>
+                            <button
+                                type="button"
+                                className="flex align-center justify-end text-dark"
+                                onClick={() => logout(authDispatch)}
+                            >
+                                <FiLogOut size={14} />
+                                <span className="mx-2 fs-13 text-uppercase ls-1" onClick={notify}>
+                                    Logout
+                                </span>
+                            </button>
+                        </>
+                    ) : (
+                        <Link to="/login" className="mx-4 flex align-center login-btn justify-end text-dark">
+                            <FaUser size={14} />
+                            <span className="mx-2 fs-13 text-uppercase ls-1">Login</span>
+                        </Link>
+                    )}
                 </div>
             </div>
 
@@ -128,6 +152,7 @@ const Navbar = () => {
                     </div>
                 </div>
             </div>
+            <ToastContainer />
         </nav>
     );
 };

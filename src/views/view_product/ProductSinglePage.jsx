@@ -4,6 +4,7 @@ import images from '../../utils/images';
 import '../../styles/ProductSinglePage.scss';
 import { ProductContext } from '../../context/productContext';
 import { BasketContext } from '../../context/basketContext';
+import { AuthContext } from '../../context/authContext';
 import { AiFillCheckCircle, AiOutlineMinus, AiOutlinePlus, AiOutlineStar } from 'react-icons/ai';
 import { formatPrice, calculateDiscountedPrice } from '../../utils/helpers';
 import { MdCancel } from 'react-icons/md';
@@ -11,6 +12,7 @@ import { MdCancel } from 'react-icons/md';
 const ProductSinglePage = () => {
     const { id } = useParams();
     const { getSingleProduct, singleProduct, dispatch: productDispatch } = useContext(ProductContext);
+    const { authData } = useContext(AuthContext);
 
     const {
         addToBasket,
@@ -184,12 +186,18 @@ const ProductSinglePage = () => {
                                 <Link to="/login" className="buy-btn shop-btn fs-14">
                                     Buy Now
                                 </Link>
-                                <button
-                                    className="add-to-cart-btn shop-btn fs-14"
-                                    onClick={() => handleBasket(singleProduct)}
-                                >
-                                    Add to Cart
-                                </button>
+                                {authData.isLoggedIn ? (
+                                    <button
+                                        className="add-to-cart-btn shop-btn fs-14"
+                                        onClick={() => handleBasket(singleProduct)}
+                                    >
+                                        Add to Cart
+                                    </button>
+                                ) : (
+                                    <Link to="/login" className="add-to-cart-btn shop-btn fs-14">
+                                        Add to Cart
+                                    </Link>
+                                )}
                             </div>
                         </div>
                     </div>

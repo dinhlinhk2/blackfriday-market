@@ -34,7 +34,7 @@ function LoginPage() {
     }
 
     function checkLoginStatus() {
-        if (authData.isLoggedIn) {
+        if (!authData.isLoggedIn) {
             notify();
         } else {
             toast.error(authErrorMsg);

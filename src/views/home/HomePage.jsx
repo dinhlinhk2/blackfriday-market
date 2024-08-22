@@ -4,6 +4,7 @@ import { Title, ProductList, FilterView, Preloader } from '../../components/comm
 import { ProductContext } from '../../context/productContext';
 import { FilterContext } from '../../context/filterContext';
 import { useContext } from 'react';
+import { ToastContainer } from 'react-toastify';
 
 const HomePage = () => {
     const { productsLoading } = useContext(ProductContext);
@@ -30,6 +31,7 @@ const HomePage = () => {
                     </div>
                 )}
             </section>
+            <ToastContainer />
         </main>
     );
 };
