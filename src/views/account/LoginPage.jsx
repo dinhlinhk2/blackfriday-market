@@ -2,6 +2,8 @@ import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useGoogleLogin } from '@react-oauth/google';
+// import { jwtDecode } from 'jwt-decode';
 
 import { AuthContext } from '../../context/authContext';
 import '../../styles/LoginPage.scss';
@@ -9,7 +11,7 @@ import '../../styles/LoginPage.scss';
 function LoginPage() {
     const [loginData, setLoginData] = useState({ username: '', password: '' });
     const navigate = useNavigate();
-    const { makeAuthRequest, dispatch, authErrorMsg, authData } = useContext(AuthContext);
+    const { makeAuthRequest, dispatch, authData, authError, loginGoogle } = useContext(AuthContext);
 
     useEffect(() => {
         if (authData.isLoggedIn) {
@@ -34,12 +36,32 @@ function LoginPage() {
     }
 
     function checkLoginStatus() {
-        if (!authData.isLoggedIn) {
+        if (authError) {
             notify();
         } else {
-            toast.error(authErrorMsg);
+            toast.error('lỗi');
         }
     }
+
+    // function onSuccess(data) {
+    //     console.log(data);
+
+    //     const decode = jwtDecode(data.credential); //credential = ID_token
+    //     console.log('success', decode);
+    // }
+
+    function onFailure(error) {
+        console.log('failure', error);
+    }
+
+    const login = useGoogleLogin({
+        onSuccess: async (res) => {
+            console.log(res); // access_token
+
+            loginGoogle(dispatch, res);
+        },
+        onError: onFailure,
+    });
 
     return (
         <main className="bg-secondary">
@@ -72,13 +94,25 @@ function LoginPage() {
                                     value={loginData.password}
                                 />
                             </div>
-
                             <button type="submit" onClick={checkLoginStatus} className="btn-login fs-16">
                                 Login
                             </button>
                             <div className="login-error-msg text-center my-3">
-                                <p className="text-danger"></p>
+                                {/* <div>
+                                    <img src="" alt="authGoogle" />
+                                    <p className="text-danger">Login With Google</p>
+                                </div> */}
                             </div>
+                            {/* <GoogleLogin
+                                text={false}
+                                theme="filled_black"
+                                shape="circle"
+                                onSuccess={onSuccess}
+                                onError={onFailure}
+                            /> */}
+                            <button className="btn-login fs-16 bg-whitesmoke" onClick={login}>
+                                Sign in with Google 🚀
+                            </button>
                         </form>
                     </div>
                 </div>

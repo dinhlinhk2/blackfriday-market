@@ -4,6 +4,12 @@ export const AUTH_SUCCESS = 'AUTH_SUCCESS';
 export const AUTH_ERROR = 'AUTH_ERROR';
 export const LOGOUT = 'LOGOUT';
 
+// login google account
+export const LOGIN_GOOGLE_REQUEST = 'LOGIN_GOOGLE_REQUSET';
+export const LOGIN_GOOGLE_SUCCESS = 'LOGIN_GOOGLE_SUCCESS';
+export const LOGIN_GOOGLE_ERROR = 'LOGIN_GOOGLE_ERROR';
+export const LOGOUT_GOOGLE = 'LOGOUT_GOOGLE';
+
 // category listing
 export const CATEGORY_LIST_REQUEST = 'CATEGORY_LIST_REQUEST';
 export const CATEGORY_LIST_SUCCESS = 'CATEGORY_LIST_SUCCESS';

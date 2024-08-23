@@ -2,7 +2,7 @@ import { useReducer, createContext } from 'react';
 import PropTypes from 'prop-types';
 
 import rootReducer from '../reducers/';
-import { makeAuthRequest, logout } from '../actions/authActions';
+import { makeAuthRequest, logout, loginGoogle } from '../actions/authActions';
 import { getFromLocalStorage } from '../utils/helpers';
 
 const fetchData = () => {
@@ -29,7 +29,9 @@ export const AuthProvider = ({ children }) => {
     const [state, dispatch] = useReducer(rootReducer.auth, initialState);
 
     return (
-        <AuthContext.Provider value={{ ...state, dispatch, makeAuthRequest, logout }}>{children}</AuthContext.Provider>
+        <AuthContext.Provider value={{ ...state, dispatch, makeAuthRequest, logout, loginGoogle }}>
+            {children}
+        </AuthContext.Provider>
     );
 };
 

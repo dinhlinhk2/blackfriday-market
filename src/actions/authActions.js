@@ -37,6 +37,44 @@ export const makeAuthRequest = async (dispatch, loginData) => {
     }
 };
 
+export const loginGoogle = async (dispatch, res) => {
+    dispatch({
+        type: actionType.LOGIN_GOOGLE_REQUEST,
+    });
+    try {
+        const data = await axios.get('https://www.googleapis.com/oauth2/v3/userinfo', {
+            headers: {
+                Authorization: `Bearer ${res.access_token}`,
+            },
+        });
+        console.log(data);
+
+        dispatch({
+            type: actionType.LOGIN_GOOGLE_SUCCESS,
+            payload: data.data,
+        });
+    } catch (error) {
+        if (!error.resonse) {
+            dispatch({
+                type: actionType.LOGIN_GOOGLE_ERROR,
+                payload: 'No server response',
+            });
+        }
+        if (error.response.status === 400) {
+            dispatch({
+                type: actionType.LOGIN_GOOGLE_ERROR,
+                payload: 'Invalid credentials',
+            });
+        }
+        if (error.response.status === 401) {
+            dispatch({
+                type: actionType.LOGIN_GOOGLE_ERROR,
+                payload: 'UnAuthorized',
+            });
+        }
+    }
+};
+
 export const logout = (dispatch) => {
     dispatch({
         type: actionType.LOGOUT,

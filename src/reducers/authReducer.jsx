@@ -47,6 +47,44 @@ const authReducer = (state, action) => {
                     info: {},
                 },
             };
+        case actionType.LOGIN_GOOGLE_REQUEST:
+            return {
+                ...state,
+                authLoading: true,
+            };
+        case actionType.LOGIN_GOOGLE_SUCCESS:
+            storeInLocalStorage(
+                {
+                    isLoggedIn: true,
+                    info: action.payload,
+                },
+                'authData',
+            );
+            return {
+                ...state,
+                authLoading: false,
+                authData: {
+                    isLoggedIn: true,
+                    info: action.payload,
+                },
+            };
+        case actionType.LOGOUT_GOOGLE:
+            storeInLocalStorage(
+                {
+                    isLoggedIn: false,
+                    info: {},
+                },
+                'authData',
+            );
+            return {
+                ...state,
+                authLoading: false,
+                authData: {
+                    isLoggedIn: false,
+                    info: {},
+                },
+            };
+
         default:
             return state;
     }

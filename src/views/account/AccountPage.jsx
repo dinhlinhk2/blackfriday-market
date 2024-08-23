@@ -13,11 +13,13 @@ function AccountPage() {
                         <div className="account-details-left">
                             <div className="info-elem">
                                 <span className="info-elem-label">Full Name:</span>
-                                <span className="info-elem-value">{`${authData.info?.firstName} ${authData.info?.lastName}`}</span>
+                                <span className="info-elem-value">{`${
+                                    authData.info?.firstName || authData.info?.family_name
+                                } ${authData.info?.lastName || authData.info?.given_name}`}</span>
                             </div>
                             <div className="info-elem">
                                 <span className="info-elem-label">Username</span>
-                                <span className="info-elem-value">{authData.info?.username}</span>
+                                <span className="info-elem-value">{authData.info?.usernam || authData.info?.name}</span>
                             </div>
                             <div className="info-elem">
                                 <span className="info-elem-label">Email</span>
@@ -32,7 +34,7 @@ function AccountPage() {
                             </div>
                         </div>
                         <div className="account-details-right">
-                            <img src={authData.info?.image} alt="user_image" />
+                            <img src={authData.info?.image || authData.info?.picture} alt="user_image" />
                         </div>
                     </div>
                 </div>

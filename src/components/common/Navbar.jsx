@@ -44,7 +44,9 @@ const Navbar = () => {
                         <>
                             <Link to="/account" className="mx-4 flex align-center justify-end text-dark">
                                 <FaUser size={14} />
-                                <span className="mx-2 fs-13 text-uppercase ls-1">{authData.info.firstName}</span>
+                                <span className="mx-2 fs-13 text-uppercase ls-1">
+                                    {authData.info.firstName || authData.info.name}
+                                </span>
                             </Link>
                             <button
                                 type="button"
