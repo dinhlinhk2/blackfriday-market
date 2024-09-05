@@ -8,3 +8,6 @@ export { default as PaymentMethods } from './PaymentMethods';
 export { default as BasketItem } from './BasketItem';
 export { default as CheckoutSummary } from './CheckoutSummary';
 export { default as SearchItem } from './SearchItem';
+export { default as Paypal } from './Paypal';
+export { default as Congrat } from './Congrat';
+export { default as CheckoutSuccess } from './CheckoutSuccess';

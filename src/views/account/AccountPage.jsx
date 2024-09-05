@@ -19,7 +19,9 @@ function AccountPage() {
                             </div>
                             <div className="info-elem">
                                 <span className="info-elem-label">Username</span>
-                                <span className="info-elem-value">{authData.info?.usernam || authData.info?.name}</span>
+                                <span className="info-elem-value">
+                                    {authData.info?.username || authData.info?.name}
+                                </span>
                             </div>
                             <div className="info-elem">
                                 <span className="info-elem-label">Email</span>

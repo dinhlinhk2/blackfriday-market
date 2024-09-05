@@ -55,7 +55,7 @@ function LoginPage() {
     }
 
     const login = useGoogleLogin({
-        onSuccess: async (res) => {
+        onSuccess: (res) => {
             console.log(res); // access_token
 
             loginGoogle(dispatch, res);

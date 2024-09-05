@@ -12,7 +12,10 @@ function Search() {
     const { dispatch: searchDispatch, getSearchProducts, searchResult } = useContext(SearchContext);
     const [searchValue, setSearchTerm] = useState('');
     const [showResult, setShowResult] = useState(false);
+
     const handleSearchTerm = (event) => {
+        console.log(event.target.value);
+
         event.preventDefault();
         setSearchTerm(event.target.value);
     };

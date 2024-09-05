@@ -2,8 +2,18 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 // import { useContext } from 'react';
 
 import './App.scss';
-import { Home, Basket, Search, Error, Login, Account, ViewCategoryProductList, ViewProductSingle } from './views/index';
-import { Footer, Navbar } from './components/common/index';
+import {
+    Home,
+    Basket,
+    Search,
+    Error,
+    Login,
+    Account,
+    ViewCategoryProductList,
+    ViewProductSingle,
+    Checkout,
+} from './views/index';
+import { CheckoutSuccess, Footer, Navbar } from './components/common/index';
 // import { authContext } from './context/authContext';
 import ProtectedRoute from './routers/ProtectedRoute';
 import PublicRoute from './routers/PublicRoute';
@@ -20,6 +30,8 @@ function App() {
                 <Route element={<ProtectedRoute authData={authData} />}>
                     <Route path="/account" element={<Account />} />
                     <Route path="/basket" element={<Basket />} />
+                    <Route path="/checkout" element={<Checkout />} />
+                    <Route path="/checkoutsuccess" element={<CheckoutSuccess />} />
                 </Route>
                 {/* public router */}
                 <Route element={<PublicRoute />}>

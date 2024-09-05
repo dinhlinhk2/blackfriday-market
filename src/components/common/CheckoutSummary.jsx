@@ -1,18 +1,23 @@
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import { formatPrice } from '../../utils/helpers';
 
 function CheckoutSummary({ checkoutCount, checkoutTotal }) {
     return (
-        <div className="summary bg-white py-3 px-4">
+        <div className="summary bg-white py-2 px-4">
             <h2>Summary</h2>
             <div className="flex align-center justify-between my-2">
                 <p>Total</p>
                 <p className="fw-6 fs-24">
-                    <span className="fw-7 text-yellow">US </span>${checkoutTotal}
+                    <span className="fw-7 text-yellow">US </span>
+                    {formatPrice(checkoutTotal)}
                 </p>
             </div>
-            <button type="button" className="checkout-btn my-2 fw-6">
-                Checkout ({checkoutCount})
-            </button>
+            {checkoutCount > 0 && (
+                <Link to={'/checkout'}>
+                    <button className="checkout-btn fw-6">Checkout ({checkoutCount})</button>
+                </Link>
+            )}
         </div>
     );
 }

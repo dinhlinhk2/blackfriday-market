@@ -6,3 +6,4 @@ export { default as Account } from './account/AccountPage';
 export { default as Search } from './search/SearchPage';
 export { default as ViewProductSingle } from './view_product/ProductSinglePage';
 export { default as ViewCategoryProductList } from './view_product/CategoryProductListPage';
+export { default as Checkout } from './checkout/checkout';

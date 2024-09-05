@@ -54,7 +54,7 @@ function BasketPage() {
                         <div className="basket-l py-4">
                             <div className="basket-top bg-white px-3 py-4">
                                 <h2>
-                                    Shopping Cart <span className="text-primary">(2)</span>
+                                    Shopping Cart <span className="text-primary">({checkoutCount})</span>
                                 </h2>
                                 <div className="flex align-center justify-between">
                                     <div className="checkbox-item flex py-3">
