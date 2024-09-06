@@ -29,11 +29,7 @@ const Navbar = () => {
     }, [basket]);
 
     const notify = () => {
-        if (authData.isLoggedIn) {
-            toast('Logged in successfully');
-        } else {
-            toast('Logout');
-        }
+        toast('Logout in successfully');
     };
 
     return (

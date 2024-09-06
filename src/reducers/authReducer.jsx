@@ -19,6 +19,7 @@ const authReducer = (state, action) => {
             return {
                 ...state,
                 authLoading: false,
+                authError: false,
                 authData: {
                     isLoggedIn: true,
                     info: action.payload,

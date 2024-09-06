@@ -1,17 +1,78 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import { BasketContext } from '../../context/basketContext';
-import Paypal from '../../components/common/Paypal';
+import { Paypal, SelectAddress } from '../../components/common';
 import '../../styles/BasketPage.scss';
 import { formatPrice } from '../../utils/helpers';
 import { getCheckoutTotal } from '../../actions/basketActions';
+
+import * as addressapi from './../../services/addressapi';
 function Checkout() {
     const { basket, checkoutTotal, checkoutCount, dispatch: basketDispatch } = useContext(BasketContext);
+
+    const [provinces, setProvinces] = useState([]);
+    const [province, setProvince] = useState();
+    const [districts, setDistricts] = useState([]);
+    const [district, setDistrict] = useState();
+    const [wards, setWards] = useState([]);
+    const [ward, setWard] = useState();
+    const [reset, setReset] = useState(false);
+
     useEffect(() => {
         getCheckoutTotal(basketDispatch);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [basket]);
 
+    useEffect(() => {
+        setDistrict(null);
+        const getDistrictByProvinceId = async (provinceId) => {
+            const res = await addressapi.getDistrictByProvinceId(provinceId);
+            if (res.status === 200) {
+                setDistricts(res.data.data);
+            }
+        };
+        province && getDistrictByProvinceId(province);
+        !province ? setReset(true) : setReset(false);
+        !province && setDistricts([]);
+    }, [province]);
+
+    useEffect(() => {
+        setWard(null);
+        const getWardsByDistrictId = async (districtId) => {
+            const res = await addressapi.getWardsByDistrictId(districtId);
+            if (res.status === 200) {
+                setWards(res.data.data);
+            }
+        };
+        province && getWardsByDistrictId(district);
+        !province ? setReset(true) : setReset(false);
+        (!province || !district) && setWards([]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [district]);
+
+    useEffect(() => {
+        const getAllProvince = async () => {
+            const res = await addressapi.getAllProvince();
+            if (res.status === 200) {
+                setProvinces(res.data.data);
+            }
+        };
+        getAllProvince();
+    }, []);
+
+    const ward_name = wards?.find((item) => {
+        const a = item.id === Number(ward);
+        return a;
+    });
+
+    const district_name = districts?.find((item) => {
+        const a = item.id === Number(district);
+        return a;
+    });
+    const province_name = provinces?.find((item) => {
+        const a = item.id === Number(province);
+        return a;
+    });
     return (
         <main className="bg-secondary">
             <div className="container">
@@ -89,7 +150,43 @@ function Checkout() {
                                         {formatPrice(checkoutTotal)}
                                     </p>
                                 </div>
+                                <h3>Địa chỉ</h3>
+                                <div className="flex flex-column">
+                                    <div className="flex my-2 ">
+                                        <SelectAddress
+                                            value={province}
+                                            setValue={setProvince}
+                                            label="Thành Phố"
+                                            options={provinces}
+                                        />
+                                        <SelectAddress
+                                            value={district}
+                                            setValue={setDistrict}
+                                            label="Quận/Huyện"
+                                            options={districts}
+                                            reset={reset}
+                                        />
+                                        <SelectAddress
+                                            value={ward}
+                                            setValue={setWard}
+                                            label="Phường/Xã"
+                                            options={wards}
+                                            reset={reset}
+                                        />
+                                    </div>
+                                    <h3>Địa chỉ đầy đủ</h3>
+                                    <input
+                                        onCopy={(e) => console.log(e.target.value)}
+                                        type="text"
+                                        readOnly
+                                        className="border"
+                                        value={`${ward ? `${ward_name?.name},` : ''} ${
+                                            district ? `${district_name?.name},` : ''
+                                        } ${province ? `${province_name?.name}` : ''}`}
+                                    />
+                                </div>
                             </div>
+
                             <Paypal
                                 payload={{
                                     products: basket,

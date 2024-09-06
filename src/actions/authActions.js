@@ -18,19 +18,19 @@ export const makeAuthRequest = async (dispatch, loginData) => {
     } catch (error) {
         if (!error.resonse) {
             dispatch({
-                type: actionType.AUTH_FAIL,
+                type: actionType.AUTH_ERROR,
                 payload: 'No server response',
             });
         }
         if (error.response.status === 400) {
             dispatch({
-                type: actionType.AUTH_FAIL,
+                type: actionType.AUTH_ERROR,
                 payload: 'Invalid credentials',
             });
         }
         if (error.response.status === 401) {
             dispatch({
-                type: actionType.AUTH_FAIL,
+                type: actionType.AUTH_ERROR,
                 payload: 'UnAuthorized',
             });
         }

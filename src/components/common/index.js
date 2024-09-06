@@ -11,3 +11,4 @@ export { default as SearchItem } from './SearchItem';
 export { default as Paypal } from './Paypal';
 export { default as Congrat } from './Congrat';
 export { default as CheckoutSuccess } from './CheckoutSuccess';
+export { default as SelectAddress } from './SelectAddress';

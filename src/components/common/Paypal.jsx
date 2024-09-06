@@ -23,7 +23,11 @@ const ButtonWrapper = ({ currency, showSpinner, amount, payload }) => {
     }, [currency, showSpinner]);
 
     const handleSaveOrder = () => {
-        const item = { ...payload, success: true };
+        var today = new Date();
+        var date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+        var time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
+        var dateTime = date + ' ' + time;
+        const item = { ...payload, success: true, dateTime: dateTime, status: 'success' };
         storeInLocalStorage(item, 'order');
         const data = getFromLocalStorage('order');
         if (data.success) {

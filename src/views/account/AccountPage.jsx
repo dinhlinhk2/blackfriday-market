@@ -1,9 +1,13 @@
 import { AuthContext } from '../../context/authContext';
 import '../../styles/AccountPage.scss';
 import { useContext } from 'react';
+import { formatPrice, getFromLocalStorage } from '../../utils/helpers';
 function AccountPage() {
     const { authData } = useContext(AuthContext);
-    console.log(authData);
+    const order = getFromLocalStorage('order');
+    // order.products.map((product, index) => {
+    //     console.log(product);
+    // });
 
     return (
         <main className="bg-secondary">
@@ -39,6 +43,46 @@ function AccountPage() {
                             <img src={authData.info?.image || authData.info?.picture} alt="user_image" />
                         </div>
                     </div>
+                    {order.products.length > 0 &&
+                        order.products.map((product) => {
+                            return (
+                                <div className="px-3 py-3" key={product?.id}>
+                                    <div className="account-details grid mt-0">
+                                        <div className="account-details-right">
+                                            <img src={product?.thumbnail} alt={product?.title} className="img-cover" />
+                                        </div>
+                                        <div className="account-details-left">
+                                            <div className="item-info-details-top">
+                                                <h4>{product?.title}</h4>
+                                            </div>
+
+                                            <div className="flex align-center flex-wrap py-1">
+                                                <span className="fs-13 text-dark">Brand: {product?.brand}</span>
+                                                <span className="fs-13 text-dark">Category: {product?.category}</span>
+                                            </div>
+
+                                            <div className="flex align-center justify-between">
+                                                <span className="fw-7 fs-17 text-yellow">${product?.price}</span>
+                                            </div>
+
+                                            <div className="fs-14">
+                                                <span className="fw-6">Total: {formatPrice(product?.totalPrice)}</span>
+                                            </div>
+                                            <div className="fs-14">
+                                                <span className="fw-6">
+                                                    <span>Date: {order.success}</span>
+                                                </span>
+                                            </div>
+                                            <div className="fs-14">
+                                                <span className="fw-6">
+                                                    <span>Date: {order.dateTime}</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            );
+                        })}
                 </div>
             </div>
         </main>
