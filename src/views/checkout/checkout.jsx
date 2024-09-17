@@ -3,13 +3,13 @@ import { useContext, useEffect, useState } from 'react';
 import { BasketContext } from '../../context/basketContext';
 import { Paypal, SelectAddress } from '../../components/common';
 import '../../styles/BasketPage.scss';
-import { formatPrice } from '../../utils/helpers';
+import { formatPrice, getFromLocalStorage } from '../../utils/helpers';
 import { getCheckoutTotal } from '../../actions/basketActions';
 
 import * as addressapi from './../../services/addressapi';
 function Checkout() {
+    const checkout = getFromLocalStorage('checkout');
     const { basket, checkoutTotal, checkoutCount, dispatch: basketDispatch } = useContext(BasketContext);
-
     const [provinces, setProvinces] = useState([]);
     const [province, setProvince] = useState();
     const [districts, setDistricts] = useState([]);
@@ -87,7 +87,7 @@ function Checkout() {
                             </div>
 
                             <div className="basket-list bg-white my-3">
-                                {basket.map((item) => {
+                                {checkout.map((item) => {
                                     return (
                                         <div className="basket-list-item grid px-3 py-3" key={item.id}>
                                             <div className="checkbox-item py-3">
@@ -152,7 +152,7 @@ function Checkout() {
                                 </div>
                                 <h3>Địa chỉ</h3>
                                 <div className="flex flex-column">
-                                    <div className="flex my-2 ">
+                                    <div className="my-2 ">
                                         <SelectAddress
                                             value={province}
                                             setValue={setProvince}
@@ -189,7 +189,7 @@ function Checkout() {
 
                             <Paypal
                                 payload={{
-                                    products: basket,
+                                    products: checkout,
                                     total: checkoutTotal,
                                 }}
                                 amount={checkoutTotal}

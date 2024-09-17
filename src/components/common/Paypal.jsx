@@ -48,9 +48,26 @@ const ButtonWrapper = ({ currency, showSpinner, amount, payload }) => {
                         .create({
                             purchase_units: [
                                 {
+                                    // eslint-disable-next-line react/prop-types
+                                    items: payload.products.map((item) => {
+                                        return {
+                                            name: item.title,
+                                            quantity: item.quantity,
+                                            unit_amount: {
+                                                currency_code: 'USD',
+                                                value: item.discountedPrice.toFixed(2),
+                                            },
+                                        };
+                                    }),
                                     amount: {
                                         currency_code: currency,
                                         value: amount,
+                                        breakdown: {
+                                            item_total: {
+                                                currency_code: 'USD',
+                                                value: amount,
+                                            },
+                                        },
                                     },
                                 },
                             ],

@@ -5,7 +5,9 @@ import { formatPrice, getFromLocalStorage } from '../../utils/helpers';
 function AccountPage() {
     const { authData } = useContext(AuthContext);
     const order = getFromLocalStorage('order');
-    // order.products.map((product, index) => {
+    // console.log(order.products);
+
+    // order.products.map((product) => {
     //     console.log(product);
     // });
 

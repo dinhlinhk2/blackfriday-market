@@ -24,6 +24,7 @@ function BasketPage() {
     }, [basket]);
 
     console.log(checkoutCount, checkoutTotal);
+    console.log(checkoutAll);
 
     function handleCheckAll(e) {
         if (e.target.checked) {

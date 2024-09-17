@@ -28,7 +28,7 @@ const basketReducer = (state, action) => {
             }
         }
         case actionType.ADD_QTY_ITEM: {
-            const existItem = state.basket.map((item) => {
+            const tempBasket = state.basket.map((item) => {
                 if (item.id === action.payload) {
                     let temp = item.quantity + 1;
                     if (temp > item.stock) {
@@ -40,10 +40,12 @@ const basketReducer = (state, action) => {
                     return item;
                 }
             });
-            storeInLocalStorage(existItem, 'basket');
+            storeInLocalStorage(tempBasket, 'basket');
+            const unChecked = tempBasket.filter((item) => item.checkoutStatus === true);
+            storeInLocalStorage(unChecked, 'checkout');
             return {
                 ...state,
-                basket: existItem,
+                basket: tempBasket,
             };
         }
         case actionType.MINUS_QTY_ITEM: {
@@ -58,6 +60,8 @@ const basketReducer = (state, action) => {
                 }
             });
             storeInLocalStorage(tempBasket, 'basket');
+            const unChecked = tempBasket.filter((item) => item.checkoutStatus === true);
+            storeInLocalStorage(unChecked, 'checkout');
             return { ...state, basket: tempBasket };
         }
         case actionType.CLEAR_BASKET: {
@@ -101,8 +105,10 @@ const basketReducer = (state, action) => {
                 }
                 return item;
             });
-            const unChecked = tempBasket.filter((item) => item.checkoutStatus === false).length;
+            const unChecked = tempBasket.filter((item) => item.checkoutStatus === true);
+
             storeInLocalStorage(tempBasket, 'basket');
+            storeInLocalStorage(unChecked, 'checkout');
             return {
                 ...state,
                 basket: tempBasket,
@@ -119,7 +125,9 @@ const basketReducer = (state, action) => {
                 }
                 return item;
             });
+            const unChecked = tempBasket.filter((item) => item.checkoutStatus === true);
             storeInLocalStorage(tempBasket, 'basket');
+            storeInLocalStorage(unChecked, 'checkout');
             return {
                 ...state,
                 basket: tempBasket,
@@ -148,7 +156,9 @@ const basketReducer = (state, action) => {
                 return { ...item, checkoutStatus: true };
             });
 
+            const unChecked = setAllBasket.filter((item) => item.checkoutStatus === true);
             storeInLocalStorage(setAllBasket, 'basket');
+            storeInLocalStorage(unChecked, 'checkout');
             return { ...state, checkoutAll: true, basket: setAllBasket };
         }
 
@@ -157,7 +167,9 @@ const basketReducer = (state, action) => {
                 return { ...item, checkoutStatus: false };
             });
 
+            const unChecked = tempBasket.filter((item) => item.checkoutStatus === true);
             storeInLocalStorage(tempBasket, 'basket');
+            storeInLocalStorage(unChecked, 'checkout');
             return { ...state, checkoutAll: false, basket: tempBasket };
         }
 
